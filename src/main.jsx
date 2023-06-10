@@ -1,10 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([{ path: "/", element: <App /> }]);
+import App from "./App.jsx";
+import Home from "./views/Home.jsx";
+import Catalog from "./views/Catalog.jsx";
+import BeerCard from "./views/BeerCard.jsx";
+
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/catalog", element: <Catalog /> },
+      { path: "/beer/:id", element: <BeerCard /> },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
