@@ -6,7 +6,7 @@ import homeHeroFull from "../assets/hero/HomeHero-full.webp";
 
 const Home = () => {
   return (
-    <main>
+    <main className='max-w-screen-2xl mx-auto'>
       <section className='hero-section relative flex justify-center items-center bg-black'>
         <img
           src={homeDefault}
@@ -19,7 +19,7 @@ const Home = () => {
             Wanna drink a good'ol beer ?
           </h1>
           <Link to='/catalog'>
-            <button className='bg-white transition duration-300 ease-out sm:bg-black sm:border-2 sm:border-black sm:hover:bg-transparent sm:hover:text-black sm:text-white py-2 px-4 rounded-3xl'>
+            <button className='bg-white transition duration-300 ease-out sm:bg-black sm:border sm:border-black sm:hover:bg-transparent sm:hover:text-black sm:text-white py-2 px-4 rounded-3xl'>
               Let's go !
             </button>
           </Link>
