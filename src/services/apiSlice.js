@@ -10,7 +10,14 @@ export const punkApi = createApi({
         method: 'GET',
       }),
     }),
+    getSpecificBeer: builder.query({
+      query: (id) => ({
+        url: `beers/${id}`,
+        method: 'GET',
+      }),
+      transformResponse: (response) => response[0],
+    }),
   }),
 });
 
-export const { useGetBeersListQuery } = punkApi;
+export const { useGetBeersListQuery, useGetSpecificBeerQuery } = punkApi;

@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { addBeer } from '../features/catalog/catalogSlice';
-
-import mockedData from '../data/mockedData';
+import React, { useEffect, useState } from 'react';
 import { useGetBeersListQuery } from '../services/apiSlice';
+import { Link } from 'react-router-dom';
 
 const Catalog = () => {
-  const { data } = useGetBeersListQuery({ page: 2, pagin: 20 });
-  const dispatch = useDispatch();
+  const { data } = useGetBeersListQuery({ page: 3, pagin: 20 });
+  const [beersList, setBeersList] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setBeersList(data);
+    }
+  }, [data]);
 
   return (
     <main className="max-w-screen-2xl mx-auto">
-      <button
-        className="p-6 bg-green-500 rounded-full flex items-center justify-center"
-        onClick={() => {
-          dispatch(addBeer(data));
-        }}
-      >
+      {beersList.map((beer) => (
+        <Link to={`${beer.id}`} state={{ beer }} key={beer.id}>
+          <p key={beer.id}>{beer.name}</p>
+        </Link>
+      ))}
+      <button className="p-6 bg-green-500 rounded-full flex items-center justify-center">
         AJOUTER UNE BIERE
       </button>
     </main>

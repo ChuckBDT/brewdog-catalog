@@ -5,15 +5,9 @@ const initialState = [];
 export const catalogSlice = createSlice({
   name: 'catalog',
   initialState,
-  reducers: {
-    addBeer: (state, action) => {
-      action.payload.forEach((beer) => {
-        !state.find((obj) => obj.id === beer.id) && state.push(beer);
-      });
-    },
-  },
+  reducers: {},
 });
 
-export const { addBeer } = catalogSlice.actions;
+export const {} = catalogSlice.actions;
 
 export default catalogSlice.reducer;
