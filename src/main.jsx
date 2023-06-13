@@ -5,7 +5,6 @@ import store from './store/store.js';
 import { Provider } from 'react-redux';
 
 import App from './App.jsx';
-import Home from './views/Home.jsx';
 import Catalog from './views/Catalog.jsx';
 import BeerCard from './views/BeerCard.jsx';
 
@@ -16,9 +15,8 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { path: '/', element: <Home /> },
       {
-        path: '/beers',
+        path: '/',
         element: <Catalog />,
       },
       { path: '/beers/:id', element: <BeerCard /> },

@@ -13,9 +13,9 @@ const Catalog = () => {
   }, [data]);
 
   return (
-    <main className="max-w-screen-2xl mx-auto">
+    <main className="max-w-screen-2xl mx-auto px-6 2xl:px-0 bg-gray-100">
       {beersList.map((beer) => (
-        <Link to={`${beer.id}`} state={{ beer }} key={beer.id}>
+        <Link to={`/beers/${beer.id}`} state={{ beer }} key={beer.id}>
           <p key={beer.id}>{beer.name}</p>
         </Link>
       ))}

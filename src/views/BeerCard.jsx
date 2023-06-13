@@ -1,25 +1,34 @@
-import { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { useGetSpecificBeerQuery } from '../services/apiSlice';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const BeerCard = () => {
-  const location = useLocation();
-  const { id } = useParams();
-  const [beer, setBeer] = useState();
+  const { beer } = useSelector((state) => state);
+  const data = beer[0];
 
-  const { data, isLoading, isError } = useGetSpecificBeerQuery(id, {
-    skip: !!location.state,
-  });
-
-  useEffect(() => {
-    if (!location.state) {
-      setBeer(data);
-    } else {
-      setBeer(location.state.beer);
-    }
-  }, [data]);
-
-  return <div>{beer ? <p>{beer.name}</p> : <p>Loading</p>}</div>;
+  return (
+    <main className="max-w-screen-2xl mx-auto px-6 2xl:px-0 bg-gray-100 h-full flex">
+      <section className="w-1/5 bg-blue-100"></section>
+      {data ? (
+        <section className="w-4/5 bg-red-100 grid grid-cols-2">
+          <header className="col-span-2">
+            <h1>{data.name}</h1>
+            <h2>{data.tagline}</h2>
+            <p>{data.description}</p>
+          </header>
+          <div>
+            <p>Ingredients</p>
+            <p>Method</p>
+          </div>
+          <div>
+            <p>Caracteristics</p>
+            <p>Goes well with</p>
+          </div>
+        </section>
+      ) : (
+        <></>
+      )}
+    </main>
+  );
 };
 
 export default BeerCard;
