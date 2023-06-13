@@ -1,7 +1,7 @@
 import React from 'react';
 
 import HeroFull from '../assets/hero/HomeHero-full.webp';
-import SideBar from '../components/Sidebar/SideBar';
+import SideBar from '../components/sidebar/SideBar';
 
 const Header = () => {
   return (
