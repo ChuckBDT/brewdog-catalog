@@ -1,10 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Ingredient from '../components/beerDetails/Ingredient';
+import hopsIcon from '../assets/beerDetails/ingredientsIcons/hops.png';
+import maltIcon from '../assets/beerDetails/ingredientsIcons/malt.png';
+import yeastIcon from '../assets/beerDetails/ingredientsIcons/yeast.png';
+import Caracteristic from '../components/beerDetails/Caracteristic';
 
 const BeerCard = () => {
   const { beer } = useSelector((state) => state);
   const data = beer[0];
+  console.log(data);
 
   return (
     <main className="max-w-screen-2xl mx-auto px-6 2xl:px-0 bg-gray-100 h-full flex">
@@ -17,31 +22,36 @@ const BeerCard = () => {
             <p className="font-light text-lg">{data.description}</p>
           </header>
           <div>
-            <div className="flex flex-col gap-y-2">
+            <div className="flex flex-col gap-y-2 mb-6">
               <h3>Ingredients</h3>
-              <Ingredient ingredient={data.ingredients.hops} />
-              <Ingredient ingredient={data.ingredients.malt} />
+              <Ingredient ingredient={data.ingredients.hops} icon={hopsIcon} />
+              <Ingredient ingredient={data.ingredients.malt} icon={maltIcon} />
+              <Ingredient
+                ingredient={data.ingredients.yeast}
+                icon={yeastIcon}
+              />
             </div>
             <div>
               <h3>Method</h3>
-              <p>
+              <p className="text-xs">
                 Fermentation :
                 <span> {data.method.fermentation.temp.value}°C</span>
               </p>
-              <p>
-                Mash temp :{' '}
+              <p className="text-xs">
+                Mash :{' '}
                 <span>
                   {data.method.mash_temp[0].duration} minutes at{' '}
                   {data.method.mash_temp[0].temp.value}°C
                 </span>
               </p>
-              <p>
+              <p className="text-xs">
                 Twist :<span> {data.method.twist}</span>
               </p>
             </div>
           </div>
           <div>
             <p>Caracteristics</p>
+            <Caracteristic name="IBU" min={1} max={150} value={data.ibu} />
             <p>Goes well with</p>
           </div>
         </section>
