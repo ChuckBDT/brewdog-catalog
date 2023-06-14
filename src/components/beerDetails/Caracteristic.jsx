@@ -1,9 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Caracteristic = ({ name, min, max, value }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (max === 100) {
+      setProgress(value);
+    } else {
+      setProgress((value * 100) / max);
+    }
+  }, []);
+
   return (
     <div>
-      {name} : {value}/{max}
+      <div className="flex w-full justify-between items-center">
+        <p className="text-gray-400">{name}</p>
+        <p>
+          {value}
+          <span className="text-gray-400">/{max}</span>
+        </p>
+      </div>
+      <div className="relative">
+        <div className="absolute top-0 left-0 bg-gray-300 w-full h-1 rounded-full"></div>
+        <div
+          style={{ width: `${progress}%` }}
+          className="absolute top-0 left-0 bg-gray-900 h-1 rounded-full transition-width duration-500"
+        ></div>
+      </div>
     </div>
   );
 };

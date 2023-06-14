@@ -5,6 +5,7 @@ import hopsIcon from '../assets/beerDetails/ingredientsIcons/hops.png';
 import maltIcon from '../assets/beerDetails/ingredientsIcons/malt.png';
 import yeastIcon from '../assets/beerDetails/ingredientsIcons/yeast.png';
 import Caracteristic from '../components/beerDetails/Caracteristic';
+import FoodPairing from '../components/beerDetails/FoodPairing';
 
 const BeerCard = () => {
   const { beer } = useSelector((state) => state);
@@ -12,7 +13,7 @@ const BeerCard = () => {
   console.log(data);
 
   return (
-    <main className="max-w-screen-2xl mx-auto px-6 2xl:px-0 bg-gray-100 h-full flex">
+    <main className="max-w-screen-2xl mx-auto px-6 2xl:px-0 bg-gray-50 h-full flex">
       <section className="w-1/5"></section>
       {data ? (
         <section className="w-4/5 grid grid-cols-2 p-10 gap-x-4">
@@ -50,9 +51,25 @@ const BeerCard = () => {
             </div>
           </div>
           <div>
-            <p>Caracteristics</p>
-            <Caracteristic name="IBU" min={1} max={150} value={data.ibu} />
-            <p>Goes well with</p>
+            <div className="gap-y-2 flex flex-col mb-6">
+              <h3>Caracteristics</h3>
+              <Caracteristic name="IBU" min={1} max={150} value={data.ibu} />
+              <Caracteristic name="EBC" min={1} max={140} value={data.ebc} />
+              <Caracteristic name="ABV" min={0} max={100} value={data.abv} />
+              <Caracteristic name="PH" min={0} max={14} value={data.ph} />
+              <Caracteristic
+                name="ATT"
+                min={0}
+                max={100}
+                value={data.attenuation_level}
+              />
+            </div>
+            <div>
+              <h3>Goes well with</h3>
+              <FoodPairing />
+              <FoodPairing />
+              <FoodPairing />
+            </div>
           </div>
         </section>
       ) : (
