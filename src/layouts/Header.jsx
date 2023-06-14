@@ -1,15 +1,16 @@
 import React from 'react';
 
 import HeroFull from '../assets/hero/HomeHero-full.webp';
+import HeroTest from '../assets/hero/HomeHeroTest.jpg';
 import SideBar from '../components/sidebar/SideBar';
 
 const Header = () => {
   return (
-    <header className="mx-auto h-28 max-w-screen-2xl relative">
+    <header className="h-36 relative">
       <img
-        src={HeroFull}
+        src={HeroTest}
         alt="Logo"
-        className="w-full h-full object-cover object-top"
+        className="w-full h-full object-cover object-bottom"
       />
       <SideBar />
     </header>

@@ -39,6 +39,7 @@ const SideBar = () => {
       <section className="sidebar-controls w-full flex justify-center items-center gap-x-8">
         <Link to="/">
           <svg
+            className="hover:fill-gray-500"
             stroke="currentColor"
             fill="currentColor"
             strokeWidth="0"
@@ -51,7 +52,7 @@ const SideBar = () => {
           </svg>
         </Link>
         <svg
-          className={`transition-opacity duration-300 ease-in-out cursor-pointer ${
+          className={`transition-opacity duration-300 ease-in-out cursor-pointer hover:fill-gray-500 ${
             !beer && 'hidden'
           }`}
           stroke="currentColor"

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className='bg-gray-100 w-full h-10 fixed bottom-0 flex justify-center items-center'>
-      <p className='text-xs'>
-        Made with &#10084; by <a href='https://github.com/ChuckBDT'>ChuckBDT</a>
+    <footer className="bg-green-950 w-full h-10 flex justify-center items-center">
+      <p className="text-xs text-white">
+        Made with &#10084; by <a href="https://github.com/ChuckBDT">ChuckBDT</a>
       </p>
     </footer>
   );
