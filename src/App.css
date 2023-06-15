@@ -1,0 +1,40 @@
+/* Custom scrollbar rules */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #5d7107 #e8e6e8;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 20px;
+  background-color: #e8e6e8;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #e8e6e8;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #e8e6e8;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background-color: rgb(20 83 45);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(32, 102, 60);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: rgb(45, 145, 85);
+}
+
+/* End of Custom scrollbar rules */

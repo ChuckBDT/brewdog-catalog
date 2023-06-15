@@ -33,9 +33,9 @@ const BeerCard = () => {
 
   return (
     <section className="max-w-screen-xl mx-auto w-full flex flex-col py-10 h-fit">
-      {data ? (
+      {data && (
         <>
-          <header className="col-span-3 mb-10 flex gap-x-4 w-full">
+          <header className="col-span-3 mb-6 flex gap-x-4 w-full">
             <div ref={sourceRef} className="h-fit w-full">
               <h1 className="font-bold text-4xl mb-2">{data.name}</h1>
               <h2 className="font-bold text-2xl mb-4 italic">{data.tagline}</h2>
@@ -69,10 +69,7 @@ const BeerCard = () => {
                   icon={yeastIcon}
                 />
               </div>
-              <div
-                className="mb-6
-              "
-              >
+              <div className="mb-2">
                 <h3 className="font-bold">Brewer's tips</h3>
                 <p className="text-xs text-justify">{data.brewers_tips}</p>
               </div>
@@ -95,7 +92,7 @@ const BeerCard = () => {
 
             <div className="flex flex-col w-full ">
               <div className="flex w-full gap-x-4 mb-6">
-                <div className="flex flex-col w-1/2 gap-y-2 ">
+                <div className="flex flex-col w-1/2 justify-between gap-y-2 ">
                   <h3 className="font-bold">Method</h3>
                   <Ingredient
                     ingredient={`Fermentation :
@@ -164,8 +161,6 @@ const BeerCard = () => {
             </div>
           </div>
         </>
-      ) : (
-        <section className="w-4/5 bg-red-100 grid grid-cols-2 h-96 animate-pulse"></section>
       )}
     </section>
   );
