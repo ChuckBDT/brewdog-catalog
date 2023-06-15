@@ -1,10 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import HeroFull from '../assets/hero/HomeHero-full.webp';
-import HeroTest from '../assets/hero/HomeHeroTest.jpg';
 import Logo from '../assets/Logo.png';
-import SideBar from '../components/sidebar/SideBar';
-import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -13,11 +11,10 @@ const Header = () => {
         <img src={Logo} alt="" className="" />
       </Link>
       <img
-        src={HeroTest}
+        src={HeroFull}
         alt="Logo"
         className="w-full h-full object-cover object-bottom"
       />
-      <SideBar />
     </header>
   );
 };

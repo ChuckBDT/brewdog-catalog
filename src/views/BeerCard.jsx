@@ -1,5 +1,7 @@
-import { useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef, useEffect, useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
+import { useGetSpecificBeerQuery } from '../services/apiSlice';
+
 import Ingredient from '../components/beerDetails/Ingredient';
 import hopsIcon from '../assets/beerDetails/ingredientsIcons/hops.png';
 import maltIcon from '../assets/beerDetails/ingredientsIcons/malt.png';
@@ -11,12 +13,33 @@ import Caracteristic from '../components/beerDetails/Caracteristic';
 import FoodPairing from '../components/beerDetails/FoodPairing';
 
 const BeerCard = () => {
-  const { beer } = useSelector((state) => state);
-  const data = beer[0];
+  const [beer, setBeer] = useState(null);
+  const { id } = useParams();
+  const location = useLocation();
   const sourceRef = useRef(null);
   const targetRef = useRef(null);
   const imgRef = useRef(null);
 
+  const { data, isLoading, isError } = useGetSpecificBeerQuery(id, {
+    skip: !id,
+  });
+
+  // Searching for beer data in the location, if it isn't found the API is called
+  useEffect(() => {
+    if (id) {
+      if (location.state) {
+        const { beer } = location.state;
+        setBeer(beer);
+      } else {
+        setBeer(data);
+      }
+      console.log(beer);
+    } else {
+      setBeer(null);
+    }
+  }, [location.pathname, data]);
+
+  // Setting height and width of the beer image to fit in the header
   useEffect(() => {
     const sourceElement = sourceRef.current;
     const targetElement = targetRef.current;
@@ -29,25 +52,25 @@ const BeerCard = () => {
       targetElement.style.height = `${sourceHeight}px`;
       targetElement.style.width = `${(sourceHeight * imgWidth) / imgHeight}px`;
     }
-  }, [data]);
+  }, [beer]);
 
   return (
     <section className="max-w-screen-xl mx-auto w-full flex flex-col py-10 h-fit">
-      {data && (
+      {beer && (
         <>
           <header className="col-span-3 mb-6 flex gap-x-4 w-full">
             <div ref={sourceRef} className="h-fit w-full">
-              <h1 className="font-bold text-4xl mb-2">{data.name}</h1>
-              <h2 className="font-bold text-2xl mb-4 italic">{data.tagline}</h2>
+              <h1 className="font-bold text-4xl mb-2">{beer.name}</h1>
+              <h2 className="font-bold text-2xl mb-4 italic">{beer.tagline}</h2>
               <p className="font-light text-lg text-justify">
-                {data.description}
+                {beer.description}
               </p>
             </div>
             <div ref={targetRef} className="">
               <img
                 ref={imgRef}
-                src={data.image_url}
-                alt={data.name}
+                src={beer.image_url}
+                alt={beer.name}
                 className="object-contain h-full w-full"
               />
             </div>
@@ -57,35 +80,35 @@ const BeerCard = () => {
               <div className="flex flex-col gap-y-2 mb-6">
                 <h3 className="font-bold">Ingredients</h3>
                 <Ingredient
-                  ingredient={data.ingredients.hops}
+                  ingredient={beer.ingredients.hops}
                   icon={hopsIcon}
                 />
                 <Ingredient
-                  ingredient={data.ingredients.malt}
+                  ingredient={beer.ingredients.malt}
                   icon={maltIcon}
                 />
                 <Ingredient
-                  ingredient={data.ingredients.yeast}
+                  ingredient={beer.ingredients.yeast}
                   icon={yeastIcon}
                 />
               </div>
               <div className="mb-2">
                 <h3 className="font-bold">Brewer's tips</h3>
-                <p className="text-xs text-justify">{data.brewers_tips}</p>
+                <p className="text-xs text-justify">{beer.brewers_tips}</p>
               </div>
               <div>
                 <h3 className="font-bold">More informations :</h3>
                 <ul className="text-xs text-justify">
                   <li>
                     {' '}
-                    Boil volume : {data.boil_volume.value}{' '}
-                    {data.boil_volume.unit}
+                    Boil volume : {beer.boil_volume.value}{' '}
+                    {beer.boil_volume.unit}
                   </li>
                   <li>
-                    Volume : {data.volume.value} {data.volume.unit}
+                    Volume : {beer.volume.value} {beer.volume.unit}
                   </li>
-                  <li>Target FG : {data.target_fg}</li>
-                  <li>Target OG : {data.target_og}</li>
+                  <li>Target FG : {beer.target_fg}</li>
+                  <li>Target OG : {beer.target_og}</li>
                 </ul>
               </div>
             </div>
@@ -96,18 +119,18 @@ const BeerCard = () => {
                   <h3 className="font-bold">Method</h3>
                   <Ingredient
                     ingredient={`Fermentation :
-                        ${data.method.fermentation.temp.value}°C
+                        ${beer.method.fermentation.temp.value}°C
                     `}
                     icon={fermentationIcon}
                   />
                   <Ingredient
-                    ingredient={`Mash : ${data.method.mash_temp[0].duration} minutes at
-                      ${data.method.mash_temp[0].temp.value}°C`}
+                    ingredient={`Mash : ${beer.method.mash_temp[0].duration} minutes at
+                      ${beer.method.mash_temp[0].temp.value}°C`}
                     icon={mashIcon}
                   />
-                  {data.method.twist && (
+                  {beer.method.twist && (
                     <Ingredient
-                      ingredient={`Twist : ${data.method.twist}`}
+                      ingredient={`Twist : ${beer.method.twist}`}
                       icon={twistIcon}
                     />
                   )}
@@ -118,41 +141,41 @@ const BeerCard = () => {
                     name="IBU"
                     min={1}
                     max={150}
-                    value={data.ibu}
+                    value={beer.ibu}
                   />
                   <Caracteristic
                     name="EBC"
                     min={1}
                     max={300}
-                    value={data.ebc}
+                    value={beer.ebc}
                   />
                   <Caracteristic
                     name="ABV"
                     min={0}
                     max={100}
-                    value={data.abv}
+                    value={beer.abv}
                   />
                   <Caracteristic
                     name="SRM"
                     min={0}
                     max={100}
-                    value={data.srm}
+                    value={beer.srm}
                   />
-                  <Caracteristic name="PH" min={0} max={14} value={data.ph} />
+                  <Caracteristic name="PH" min={0} max={14} value={beer.ph} />
                   <Caracteristic
                     name="ATT"
                     min={0}
                     max={100}
-                    value={data.attenuation_level}
+                    value={beer.attenuation_level}
                   />
                 </div>
               </div>
               <div className="gap-y-2 flex flex-col flex-1 ">
                 <h3 className="font-bold">Goes well with</h3>
                 <div className="flex gap-x-6 h-full">
-                  {data.food_pairing.map((food) => (
+                  {beer.food_pairing.map((food) => (
                     <FoodPairing
-                      key={data.food_pairing.indexOf(food)}
+                      key={beer.food_pairing.indexOf(food)}
                       food={food}
                     />
                   ))}
