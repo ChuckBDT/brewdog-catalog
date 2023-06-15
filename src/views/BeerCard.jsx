@@ -1,6 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { useGetSpecificBeerQuery } from '../services/apiSlice';
+import {
+  useGetSpecificBeerQuery,
+  useLikedBeerMutation,
+} from '../services/apiSlice';
 
 import Ingredient from '../components/beerDetails/Ingredient';
 import hopsIcon from '../assets/beerDetails/ingredientsIcons/hops.png';
@@ -22,9 +25,22 @@ const BeerCard = () => {
   const imgRef = useRef(null);
 
   // Call to get specific beer, blocked
-  const { data, isLoading, isError } = useGetSpecificBeerQuery(id, {
+  const { data, isLoading, isError, error } = useGetSpecificBeerQuery(id, {
     skip: skipApiCall,
   });
+
+  // Call to send liked beer
+  const [likedBeer, { isLoading: likedBeerLoading, isError: likedBeerError }] =
+    useLikedBeerMutation();
+
+  const handleLikeBeer = (id, name) => {
+    console.log('Beer liked');
+    likedBeer({ id, name });
+
+    if (likedBeerError) {
+      console.log('ERREUR');
+    }
+  };
 
   // Searching for beer data in the location, if it isn't found the API is called
   useEffect(() => {
@@ -33,6 +49,7 @@ const BeerCard = () => {
       setBeer(beer);
     } else {
       setSkipApiCall(false);
+      console.log(isLoading, isError);
       setBeer(data);
     }
     console.log(beer);
@@ -53,13 +70,34 @@ const BeerCard = () => {
     }
   }, [beer]);
 
+  if (isLoading) {
+    return (
+      <main className="max-w-screen-xl mx-auto w-full h-full animate-pulse"></main>
+    );
+  }
+
+  if (isError) {
+    return (
+      <main className="max-w-screen-xl mx-auto w-full h-full">
+        {JSON.stringify(error.data)}
+      </main>
+    );
+  }
+
   return (
     <section className="max-w-screen-xl mx-auto w-full flex flex-col py-10 h-fit">
       {beer && (
         <>
           <header className="col-span-3 mb-6 flex gap-x-4 w-full">
             <div ref={sourceRef} className="h-fit w-full">
-              <h1 className="font-bold text-4xl mb-2">{beer.name}</h1>
+              <h1
+                className="font-bold text-4xl mb-2"
+                onClick={() => {
+                  handleLikeBeer(beer.id, beer.name);
+                }}
+              >
+                {beer.name}
+              </h1>
               <h2 className="font-bold text-2xl mb-4 italic">{beer.tagline}</h2>
               <p className="font-light text-lg text-justify">
                 {beer.description}

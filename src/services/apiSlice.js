@@ -17,7 +17,18 @@ export const punkApi = createApi({
       }),
       transformResponse: (response) => response[0],
     }),
+    likedBeer: builder.mutation({
+      query: (data) => ({
+        url: `beers/liked`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetBeersListQuery, useGetSpecificBeerQuery } = punkApi;
+export const {
+  useGetBeersListQuery,
+  useGetSpecificBeerQuery,
+  useLikedBeerMutation,
+} = punkApi;
