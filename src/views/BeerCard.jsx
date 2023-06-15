@@ -14,30 +14,29 @@ import FoodPairing from '../components/beerDetails/FoodPairing';
 
 const BeerCard = () => {
   const [beer, setBeer] = useState(null);
+  const [skipApiCall, setSkipApiCall] = useState(true);
   const { id } = useParams();
   const location = useLocation();
   const sourceRef = useRef(null);
   const targetRef = useRef(null);
   const imgRef = useRef(null);
 
+  // Call to get specific beer, blocked
   const { data, isLoading, isError } = useGetSpecificBeerQuery(id, {
-    skip: !id,
+    skip: skipApiCall,
   });
 
   // Searching for beer data in the location, if it isn't found the API is called
   useEffect(() => {
-    if (id) {
-      if (location.state) {
-        const { beer } = location.state;
-        setBeer(beer);
-      } else {
-        setBeer(data);
-      }
-      console.log(beer);
+    if (location.state) {
+      const { beer } = location.state;
+      setBeer(beer);
     } else {
-      setBeer(null);
+      setSkipApiCall(false);
+      setBeer(data);
     }
-  }, [location.pathname, data]);
+    console.log(beer);
+  }, [location.pathname, beer, data]);
 
   // Setting height and width of the beer image to fit in the header
   useEffect(() => {
