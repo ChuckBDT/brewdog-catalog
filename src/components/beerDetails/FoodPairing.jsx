@@ -3,7 +3,7 @@ import food1 from '../../assets/beerDetails/foodPairings/1.webp';
 
 const FoodPairing = ({ food }) => {
   return (
-    <div className="relative w-full flex-1 rounded-md overflow-hidden">
+    <div className="relative w-full flex-1 h-full rounded-md overflow-hidden">
       <img
         src={food1}
         alt="food1"

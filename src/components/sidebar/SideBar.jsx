@@ -34,7 +34,7 @@ const SideBar = () => {
   }, [beer]);
 
   return (
-    <div className="z-40 shadow-md absolute top-6 left-6 p-8 h-fit w-64 bg-white rounded-xl flex flex-col justify-center items-center">
+    <div className="z-40 shadow-md absolute top-6 left-6 p-8 h-fit w-64 bg-white rounded-xl flex flex-col justify-center items-center opacity-0">
       <img src={LogoLandscape} alt="" className="sidebar-logo w-1/2 mb-6" />
       <section className="sidebar-controls w-full flex justify-center items-center gap-x-8">
         <Link to="/">

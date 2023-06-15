@@ -8,7 +8,10 @@ function App() {
   return (
     <>
       <Header />
-      <Outlet />
+      <main className="bg-gray-50 flex-1 flex px-8">
+        <Outlet />
+      </main>
+
       <Footer />
     </>
   );

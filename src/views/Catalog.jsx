@@ -13,13 +13,15 @@ const Catalog = () => {
   }, [data]);
 
   return (
-    <main className="p-10 pt-16 bg-gray-50">
-      {beersList.map((beer) => (
-        <Link to={`/beers/${beer.id}`} state={{ beer }} key={beer.id}>
-          <p key={beer.id}>{beer.name}</p>
-        </Link>
-      ))}
-    </main>
+    <section className="max-w-screen-xl w-full flex mx-auto py-10">
+      <section className="">
+        {beersList.map((beer) => (
+          <Link to={`/beers/${beer.id}`} state={{ beer }} key={beer.id}>
+            <p key={beer.id}>{beer.name}</p>
+          </Link>
+        ))}
+      </section>
+    </section>
   );
 };
 
