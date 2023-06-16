@@ -21,6 +21,9 @@ const Catalog = () => {
           </Link>
         ))}
       </section>
+      <Link to={`/beers/1`}>
+        <p>Bière Test</p>
+      </Link>
     </section>
   );
 };
