@@ -127,21 +127,29 @@ const BeerCard = () => {
           </header>
           <div className="flex gap-x-10 justify-between w-full ">
             <div className="w-1/3">
-              <section className="flex flex-col gap-y-2 mb-6">
-                <h3 className="font-bold">Ingredients</h3>
-                <WhiteSquareTile data={beer.ingredients.hops} icon={hopsIcon} />
-                <WhiteSquareTile data={beer.ingredients.malt} icon={maltIcon} />
-                <WhiteSquareTile
-                  data={beer.ingredients.yeast}
-                  icon={yeastIcon}
-                />
+              <section className="mb-6">
+                <h3 className="font-bold mb-2">Ingredients</h3>
+                <div className="flex flex-col gap-y-2 justify-between">
+                  <WhiteSquareTile
+                    data={beer.ingredients.hops}
+                    icon={hopsIcon}
+                  />
+                  <WhiteSquareTile
+                    data={beer.ingredients.malt}
+                    icon={maltIcon}
+                  />
+                  <WhiteSquareTile
+                    data={beer.ingredients.yeast}
+                    icon={yeastIcon}
+                  />
+                </div>
               </section>
               <section className="mb-2">
-                <h3 className="font-bold">Brewer's tips</h3>
+                <h3 className="font-bold mb-1">Brewer's tips</h3>
                 <p className="text-xs text-justify">{beer.brewers_tips}</p>
               </section>
               <section>
-                <h3 className="font-bold">More informations :</h3>
+                <h3 className="font-bold mb-1">More informations :</h3>
                 <ul className="text-xs text-justify">
                   <li>
                     {' '}
@@ -180,43 +188,45 @@ const BeerCard = () => {
                     )}
                   </div>
                 </section>
-                <section className="flex flex-col  w-full gap-y-2 justify-between">
-                  <h3 className="font-bold">Caracteristics</h3>
-                  <Caracteristic
-                    name="IBU"
-                    min={1}
-                    max={150}
-                    value={beer.ibu}
-                  />
-                  <Caracteristic
-                    name="EBC"
-                    min={1}
-                    max={300}
-                    value={beer.ebc}
-                  />
-                  <Caracteristic
-                    name="ABV"
-                    min={0}
-                    max={100}
-                    value={beer.abv}
-                  />
-                  <Caracteristic
-                    name="SRM"
-                    min={0}
-                    max={100}
-                    value={beer.srm}
-                  />
-                  <Caracteristic name="PH" min={0} max={14} value={beer.ph} />
-                  <Caracteristic
-                    name="ATT"
-                    min={0}
-                    max={100}
-                    value={beer.attenuation_level}
-                  />
+                <section className="w-full h-full flex flex-col">
+                  <h3 className="font-bold mb-2">Caracteristics</h3>
+                  <div className="flex flex-col flex-1 justify-between gap-y-2">
+                    <Caracteristic
+                      name="IBU"
+                      min={1}
+                      max={150}
+                      value={beer.ibu}
+                    />
+                    <Caracteristic
+                      name="EBC"
+                      min={1}
+                      max={300}
+                      value={beer.ebc}
+                    />
+                    <Caracteristic
+                      name="ABV"
+                      min={0}
+                      max={100}
+                      value={beer.abv}
+                    />
+                    <Caracteristic
+                      name="SRM"
+                      min={0}
+                      max={100}
+                      value={beer.srm}
+                    />
+                    <Caracteristic name="PH" min={0} max={14} value={beer.ph} />
+                    <Caracteristic
+                      name="ATT"
+                      min={0}
+                      max={100}
+                      value={beer.attenuation_level}
+                    />
+                  </div>
                 </section>
               </div>
-              <aside className="gap-y-2 flex flex-col flex-1 ">
-                <h3 className="font-bold">Goes well with</h3>
+              <aside className="flex flex-col flex-1">
+                <h3 className="font-bold mb-2">Goes well with</h3>
                 <div className="flex gap-x-12 h-full">
                   {beer.food_pairing.map((food) => (
                     <FoodPairing
