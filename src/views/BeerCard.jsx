@@ -5,7 +5,7 @@ import {
   useLikedBeerMutation,
 } from '../services/apiSlice';
 
-import Ingredient from '../components/beerDetails/Ingredient';
+import WhiteSquareTile from '../components/beerDetails/WhiteSquareTile';
 import hopsIcon from '../assets/beerDetails/ingredientsIcons/hops.png';
 import maltIcon from '../assets/beerDetails/ingredientsIcons/malt.png';
 import yeastIcon from '../assets/beerDetails/ingredientsIcons/yeast.png';
@@ -14,7 +14,6 @@ import fermentationIcon from '../assets/beerDetails/methodIcons/fermentation.png
 import twistIcon from '../assets/beerDetails/methodIcons/twist.png';
 import Caracteristic from '../components/beerDetails/Caracteristic';
 import FoodPairing from '../components/beerDetails/FoodPairing';
-import heartIcon from '../assets/heart.png';
 
 const BeerCard = () => {
   const [beer, setBeer] = useState(null);
@@ -30,10 +29,11 @@ const BeerCard = () => {
     skip: skipApiCall,
   });
 
+  // Call to send liked beer
   const [likedBeer, { isError: likedBeerIsError, error: likedBeerError }] =
     useLikedBeerMutation();
 
-  // Call to send liked beer
+  // Handling like beer heart button click
   const handleLikeBeer = (id, name) => {
     likedBeer({ id, name });
   };
@@ -93,10 +93,10 @@ const BeerCard = () => {
         <>
           <header className="col-span-3 mb-6 flex gap-x-4 w-full">
             <div ref={sourceRef} className="h-fit w-full">
-              <h1 className="font-bold text-4xl mb-2">
+              <h1 className="font-bold text-4xl mb-2 flex items-center gap-x-3">
                 {beer.name}{' '}
                 <svg
-                  className="inline-block hover:fill-green-800 transition-colors active:fill-green-500"
+                  className="hover:fill-green-800 transition-colors active:fill-green-500"
                   onClick={() => {
                     handleLikeBeer(beer.id, beer.name);
                   }}
@@ -127,26 +127,20 @@ const BeerCard = () => {
           </header>
           <div className="flex gap-x-10 justify-between w-full ">
             <div className="w-1/3">
-              <div className="flex flex-col gap-y-2 mb-6">
+              <section className="flex flex-col gap-y-2 mb-6">
                 <h3 className="font-bold">Ingredients</h3>
-                <Ingredient
-                  ingredient={beer.ingredients.hops}
-                  icon={hopsIcon}
-                />
-                <Ingredient
-                  ingredient={beer.ingredients.malt}
-                  icon={maltIcon}
-                />
-                <Ingredient
-                  ingredient={beer.ingredients.yeast}
+                <WhiteSquareTile data={beer.ingredients.hops} icon={hopsIcon} />
+                <WhiteSquareTile data={beer.ingredients.malt} icon={maltIcon} />
+                <WhiteSquareTile
+                  data={beer.ingredients.yeast}
                   icon={yeastIcon}
                 />
-              </div>
-              <div className="mb-2">
+              </section>
+              <section className="mb-2">
                 <h3 className="font-bold">Brewer's tips</h3>
                 <p className="text-xs text-justify">{beer.brewers_tips}</p>
-              </div>
-              <div>
+              </section>
+              <section>
                 <h3 className="font-bold">More informations :</h3>
                 <ul className="text-xs text-justify">
                   <li>
@@ -160,32 +154,33 @@ const BeerCard = () => {
                   <li>Target FG : {beer.target_fg}</li>
                   <li>Target OG : {beer.target_og}</li>
                 </ul>
-              </div>
+              </section>
             </div>
-
             <div className="flex flex-col w-full ">
               <div className="flex w-full gap-x-4 mb-6">
-                <div className="flex flex-col w-1/2 justify-between gap-y-2 ">
-                  <h3 className="font-bold">Method</h3>
-                  <Ingredient
-                    ingredient={`Fermentation :
+                <section className=" w-1/2 h-full flex flex-col">
+                  <h3 className="font-bold mb-2">Method</h3>
+                  <div className="flex flex-col flex-1 justify-between gap-y-2">
+                    <WhiteSquareTile
+                      data={`Fermentation :
                         ${beer.method.fermentation.temp.value}°C
                     `}
-                    icon={fermentationIcon}
-                  />
-                  <Ingredient
-                    ingredient={`Mash : ${beer.method.mash_temp[0].duration} minutes at
-                      ${beer.method.mash_temp[0].temp.value}°C`}
-                    icon={mashIcon}
-                  />
-                  {beer.method.twist && (
-                    <Ingredient
-                      ingredient={`Twist : ${beer.method.twist}`}
-                      icon={twistIcon}
+                      icon={fermentationIcon}
                     />
-                  )}
-                </div>
-                <div className="flex flex-col  w-full gap-y-2 justify-between">
+                    <WhiteSquareTile
+                      data={`Mash : ${beer.method.mash_temp[0].duration} minutes at
+                      ${beer.method.mash_temp[0].temp.value}°C`}
+                      icon={mashIcon}
+                    />
+                    {beer.method.twist && (
+                      <WhiteSquareTile
+                        data={`Twist : ${beer.method.twist}`}
+                        icon={twistIcon}
+                      />
+                    )}
+                  </div>
+                </section>
+                <section className="flex flex-col  w-full gap-y-2 justify-between">
                   <h3 className="font-bold">Caracteristics</h3>
                   <Caracteristic
                     name="IBU"
@@ -218,9 +213,9 @@ const BeerCard = () => {
                     max={100}
                     value={beer.attenuation_level}
                   />
-                </div>
+                </section>
               </div>
-              <div className="gap-y-2 flex flex-col flex-1 ">
+              <aside className="gap-y-2 flex flex-col flex-1 ">
                 <h3 className="font-bold">Goes well with</h3>
                 <div className="flex gap-x-12 h-full">
                   {beer.food_pairing.map((food) => (
@@ -230,7 +225,7 @@ const BeerCard = () => {
                     />
                   ))}
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </>
