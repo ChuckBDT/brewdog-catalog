@@ -30,17 +30,18 @@ const BeerCard = () => {
   });
 
   // Call to send liked beer
-  const [likedBeer, { isLoading: likedBeerLoading, isError: likedBeerError }] =
+  const [likedBeer, { isError: likedBeerIsError, error: likedBeerError }] =
     useLikedBeerMutation();
 
   const handleLikeBeer = (id, name) => {
-    console.log('Beer liked');
     likedBeer({ id, name });
-
-    if (likedBeerError) {
-      console.log('ERREUR');
-    }
   };
+
+  useEffect(() => {
+    if (likedBeerIsError) {
+      console.log(likedBeerError.data);
+    }
+  }, [likedBeerIsError]);
 
   // Searching for beer data in the location, if it isn't found the API is called
   useEffect(() => {
@@ -49,10 +50,8 @@ const BeerCard = () => {
       setBeer(beer);
     } else {
       setSkipApiCall(false);
-      console.log(isLoading, isError);
       setBeer(data);
     }
-    console.log(beer);
   }, [location.pathname, beer, data]);
 
   // Setting height and width of the beer image to fit in the header
