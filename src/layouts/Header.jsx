@@ -8,7 +8,11 @@ const Header = () => {
   return (
     <header className="h-36 relative flex justify-center items-center">
       <Link to="/" className="absolute w-12 object-contain invert">
-        <img src={Logo} alt="" className="" />
+        <img
+          src={Logo}
+          alt=""
+          className="hover:opacity-80 transition-opacity"
+        />
       </Link>
       <img
         src={HeroFull}
