@@ -1,5 +1,7 @@
 # Brewdog Catalog
 
+![Illustration](readme-illustration.webp)
+
 This repository houses a front-end application that efficiently displays beers using the Punk API. The application is built using React, Redux Toolkit, Tailwind CSS, and Vite.
 
 ## Table of Contents
