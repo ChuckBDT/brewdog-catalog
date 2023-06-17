@@ -34,6 +34,8 @@ const Catalog = () => {
         data={beersList}
         headOrder={headOrder}
         isLoading={isLoading}
+        callPage={callPage}
+        setCallPage={setCallPage}
       />
     </section>
   );
