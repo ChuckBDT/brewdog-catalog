@@ -38,3 +38,12 @@
 }
 
 /* End of Custom scrollbar rules */
+
+/* Custom table rules */
+tbody:before {
+  content: '@';
+  display: block;
+  line-height: 10px;
+  text-indent: -99999px;
+}
+/* End of Custom table rules */

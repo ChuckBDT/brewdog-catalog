@@ -47,12 +47,13 @@ const BeerCard = () => {
   // Searching for beer data in the location, if it isn't found the API is called
   useEffect(() => {
     if (location.state) {
-      const { beer } = location.state;
-      setBeer(beer);
+      const { item } = location.state;
+      setBeer(item);
     } else {
       setSkipApiCall(false);
       setBeer(data);
     }
+    console.log(beer);
   }, [location.pathname, beer, data]);
 
   // Setting height and width of the beer image to fit in the header

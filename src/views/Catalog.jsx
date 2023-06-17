@@ -1,9 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useGetBeersListQuery } from '../services/apiSlice';
 import { Link } from 'react-router-dom';
+import InfiniteScrollTable from '../components/catalog/InfiniteScrollTable';
+
+const headOrder = {
+  name: 'Name',
+  tagline: 'Tag line',
+  first_brewed: 'First brewed',
+  ibu: 'IBU',
+  ebc: 'EBC',
+  abv: 'ABV',
+  srm: 'SRM',
+  ph: 'PH',
+};
 
 const Catalog = () => {
-  const { data } = useGetBeersListQuery({ page: 3, pagin: 20 });
+  const [callPage, setCallPage] = useState(1);
+  const { data, isLoading, isError } = useGetBeersListQuery({
+    page: callPage,
+    pagin: 20,
+  });
   const [beersList, setBeersList] = useState([]);
 
   useEffect(() => {
@@ -14,16 +30,11 @@ const Catalog = () => {
 
   return (
     <section className="max-w-screen-xl w-full flex mx-auto py-10">
-      <section className="">
-        {beersList.map((beer) => (
-          <Link to={`/beers/${beer.id}`} state={{ beer }} key={beer.id}>
-            <p key={beer.id}>{beer.name}</p>
-          </Link>
-        ))}
-      </section>
-      <Link to={`/beers/1`}>
-        <p>Bière Test</p>
-      </Link>
+      <InfiniteScrollTable
+        data={beersList}
+        headOrder={headOrder}
+        isLoading={isLoading}
+      />
     </section>
   );
 };
