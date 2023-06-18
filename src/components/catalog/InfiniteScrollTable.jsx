@@ -6,27 +6,28 @@ const InfiniteScrollTable = ({
   headOrder,
   isLoading,
   callPage,
+  pagin,
   setCallPage,
 }) => {
   const [beers, setBeers] = useState([]);
   const observer = useRef();
-  const lastBeerElRef = useCallback(
+  const columnsKey = Object.keys(headOrder);
+
+  const lastBeerRef = useCallback(
     (node) => {
       if (isLoading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          if (data.length === 20) {
+          if (data.length === pagin) {
             setCallPage(callPage + 1);
           }
         }
       });
       if (node) observer.current.observe(node);
-      console.log(node);
     },
     [data, isLoading]
   );
-  const columnsKey = Object.keys(headOrder);
 
   useEffect(() => {
     data.forEach((item) => {
@@ -49,38 +50,13 @@ const InfiniteScrollTable = ({
         </thead>
         <tbody className="">
           {beers.map((item, index) => {
-            if (beers.length === index + 1) {
-              return (
-                <tr key={index} ref={lastBeerElRef} className="">
-                  {columnsKey.map((head, i) => (
-                    <td key={i} className="px-4 h-10">
-                      {item[head]}
-                    </td>
-                  ))}
-                  <td className="px-4 h-10 flex justify-center  items-center">
-                    <Link to={`/beers/${item.id}`} state={{ item }}>
-                      <svg
-                        className="hover:w-6 hover:h-6 transition-all"
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth="0"
-                        viewBox="0 0 16 16"
-                        height="1.2em"
-                        width="1.2em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
-                        ></path>
-                      </svg>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            }
+            // If the beer is the last in the list, ref is added
+            // to perform the infinite scroll
             return (
-              <tr key={index} className="">
+              <tr
+                key={index}
+                ref={beers.length === index + 1 ? lastBeerRef : null}
+              >
                 {columnsKey.map((head, i) => (
                   <td key={i} className="px-4 h-10">
                     {item[head]}

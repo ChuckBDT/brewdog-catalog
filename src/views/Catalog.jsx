@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useGetBeersListQuery } from '../services/apiSlice';
-import { Link } from 'react-router-dom';
 import InfiniteScrollTable from '../components/catalog/InfiniteScrollTable';
 
 const headOrder = {
@@ -16,9 +15,10 @@ const headOrder = {
 
 const Catalog = () => {
   const [callPage, setCallPage] = useState(1);
+  const [pagin, setPagin] = useState(20);
   const { data, isLoading, isError } = useGetBeersListQuery({
     page: callPage,
-    pagin: 20,
+    pagin,
   });
   const [beersList, setBeersList] = useState([]);
 
@@ -35,6 +35,7 @@ const Catalog = () => {
         headOrder={headOrder}
         isLoading={isLoading}
         callPage={callPage}
+        pagin={pagin}
         setCallPage={setCallPage}
       />
     </section>
