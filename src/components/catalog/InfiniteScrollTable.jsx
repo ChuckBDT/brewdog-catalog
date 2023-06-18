@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
-const InfiniteScrollTable = ({ data, headOrder, getNextData }) => {
+const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
   const [beers, setBeers] = useState([]);
+
   const [loadingData, setLoadingData] = useState(false);
   const observer = useRef();
 
@@ -76,7 +77,8 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData }) => {
             </tr>
           );
         })}
-        <tr className={`h-10 ${!loadingData && 'hidden'} `}>
+        {/* Loading data animation */}
+        <tr className={`h-10 ${lastData && 'hidden'} `}>
           {columnsKey.map((i) => (
             <td key={i} className="px-4 h-10 animate-pulse">
               <div className="w-full h-full bg-gray-200 rounded-md"></div>

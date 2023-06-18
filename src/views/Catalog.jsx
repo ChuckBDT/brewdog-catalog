@@ -14,17 +14,20 @@ const headOrder = {
 };
 
 const Catalog = () => {
-  const [callPage, setCallPage] = useState(1);
+  const [page, setPage] = useState(1);
   const [pagin, setPagin] = useState(20);
   const { data, isLoading, isError } = useGetBeersListQuery({
-    page: callPage,
+    page,
     pagin,
   });
+  const [lastData, setLastData] = useState(false);
   const [beersList, setBeersList] = useState([]);
 
   const getNextData = () => {
     if (beersList.length === pagin) {
-      setCallPage(callPage + 1);
+      setPage((prevstate) => prevstate + 1);
+    } else {
+      setLastData(true);
     }
   };
 
@@ -41,6 +44,7 @@ const Catalog = () => {
         headOrder={headOrder}
         isLoading={isLoading}
         getNextData={getNextData}
+        lastData={lastData}
       />
     </section>
   );
