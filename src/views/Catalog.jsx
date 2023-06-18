@@ -22,6 +22,12 @@ const Catalog = () => {
   });
   const [beersList, setBeersList] = useState([]);
 
+  const getNextData = () => {
+    if (beersList.length === pagin) {
+      setCallPage(callPage + 1);
+    }
+  };
+
   useEffect(() => {
     if (data) {
       setBeersList(data);
@@ -34,9 +40,7 @@ const Catalog = () => {
         data={beersList}
         headOrder={headOrder}
         isLoading={isLoading}
-        callPage={callPage}
-        pagin={pagin}
-        setCallPage={setCallPage}
+        getNextData={getNextData}
       />
     </section>
   );

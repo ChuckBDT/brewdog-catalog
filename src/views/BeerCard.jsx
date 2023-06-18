@@ -53,7 +53,6 @@ const BeerCard = () => {
       setSkipApiCall(false);
       setBeer(data);
     }
-    console.log(beer);
   }, [location.pathname, beer, data]);
 
   // Setting height and width of the beer image to fit in the header
