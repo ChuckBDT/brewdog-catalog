@@ -42,7 +42,6 @@ const Catalog = () => {
       <InfiniteScrollTable
         data={beersList}
         headOrder={headOrder}
-        isLoading={isLoading}
         getNextData={getNextData}
         lastData={lastData}
       />

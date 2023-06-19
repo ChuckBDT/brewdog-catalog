@@ -41,7 +41,7 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
             <th
               key={i}
               className={`text-left px-4 text-stone-500 font-normal ${
-                head === 'name' ? 'w-1/4' : head === 'tagline' && 'w-1/4'
+                head === 'name' ? 'w-1/4' : head === 'tagline' && 'w-1/3'
               }`}
             >
               {headOrder[head]}
@@ -59,7 +59,7 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
               key={index}
               ref={beers.length === index + 1 ? lastBeerRef : null}
               className={
-                beers.length !== index + 1 && 'border-b border-gray-200'
+                beers.length !== index + 1 ? 'border-b border-gray-200' : ''
               }
             >
               {columnsKey.map((head, i) => (
