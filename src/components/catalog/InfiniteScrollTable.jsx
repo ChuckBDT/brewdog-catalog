@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 
 const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
   const [beers, setBeers] = useState([]);
-
   const [loadingData, setLoadingData] = useState(false);
   const observer = useRef();
 
   const columnsKey = Object.keys(headOrder);
 
+  // Calling the API to get next data if the user
+  // sees the last entry in the table
   const lastBeerRef = useCallback(
     (node) => {
       if (loadingData) return;
@@ -23,6 +24,9 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
     [data]
   );
 
+  // Setting the loading state to true during the
+  // retrieving of the data to avoid infinite loop
+  // as the user is already on bottom of the table
   useEffect(() => {
     setLoadingData(true);
     setBeers((prevstate) => [...prevstate, ...data]);
@@ -32,9 +36,14 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
   return (
     <table className="w-full h-fit">
       <thead className="bg-white h-12 shadow-md sticky top-0 my-8">
-        <tr className="">
+        <tr className="whitespace-nowrap">
           {columnsKey.map((head, i) => (
-            <th key={i} className="text-left px-4 text-stone-500 font-normal">
+            <th
+              key={i}
+              className={`text-left px-4 text-stone-500 font-normal ${
+                head === 'name' ? 'w-1/4' : head === 'tagline' && 'w-1/4'
+              }`}
+            >
               {headOrder[head]}
             </th>
           ))}
@@ -49,6 +58,9 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
             <tr
               key={index}
               ref={beers.length === index + 1 ? lastBeerRef : null}
+              className={
+                beers.length !== index + 1 && 'border-b border-gray-200'
+              }
             >
               {columnsKey.map((head, i) => (
                 <td key={i} className="px-4 h-10">
@@ -58,7 +70,7 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
               <td className="px-4 h-10 flex justify-center  items-center">
                 <Link to={`/beers/${item.id}`} state={{ item }}>
                   <svg
-                    className="hover:w-6 hover:h-6 transition-all"
+                    className="hover:w-6 hover:h-6 transition-all hover:fill-green-800 active:fill-green-500"
                     stroke="currentColor"
                     fill="currentColor"
                     strokeWidth="0"
