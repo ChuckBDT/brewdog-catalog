@@ -67,7 +67,7 @@ const InfiniteScrollTable = ({ data, headOrder, getNextData, lastData }) => {
                   {item[head]}
                 </td>
               ))}
-              <td className="px-4 h-10 flex justify-center  items-center">
+              <td className="px-4 h-full flex justify-center  items-center">
                 <Link to={`/beers/${item.id}`} state={{ item }}>
                   <svg
                     className="hover:w-6 hover:h-6 transition-all hover:fill-green-800 active:fill-green-500"

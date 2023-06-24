@@ -14,18 +14,17 @@ const headOrder = {
 };
 
 const Catalog = () => {
-  const [page, setPage] = useState(1);
-  const [pagin, setPagin] = useState(20);
+  const [pagin, setPagin] = useState({ page: 1, pagin: 20 });
   const { data, isLoading, isError } = useGetBeersListQuery({
-    page,
-    pagin,
+    page: pagin.page,
+    pagin: pagin.pagin,
   });
   const [lastData, setLastData] = useState(false);
   const [beersList, setBeersList] = useState([]);
 
   const getNextData = () => {
-    if (beersList.length === pagin) {
-      setPage((prevstate) => prevstate + 1);
+    if (beersList.length === pagin.pagin) {
+      setPagin({ ...pagin, page: pagin.page + 1 });
     } else {
       setLastData(true);
     }
