@@ -72,5 +72,3 @@ This will generate an optimized build of the application in the `dist` directory
 ## License
 
 The **Brewdog Catalog** repository is available under the [MIT License](LICENSE). You are free to modify, distribute, and use the code in this repository. However, please note that any use of the Punk API should comply with their terms of service and usage guidelines.
-
-Feel free to update this README file to provide more information about your project, its features, or any other relevant details. Enjoy building your front-end application with React, Redux Toolkit, Tailwind CSS, and Vite!
