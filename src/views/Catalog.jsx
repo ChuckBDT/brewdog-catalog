@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGetBeersListQuery } from '../services/apiSlice';
 import InfiniteScrollTable from '../components/catalog/InfiniteScrollTable';
+import fakeApi from '../services/fakeApi';
 
 const headOrder = {
   name: 'Name',
@@ -15,10 +16,11 @@ const headOrder = {
 
 const Catalog = () => {
   const [pagin, setPagin] = useState({ page: 1, pagin: 20 });
-  const { data, isLoading, isError } = useGetBeersListQuery({
-    page: pagin.page,
-    pagin: pagin.pagin,
-  });
+  // const { data, isLoading, isError } = useGetBeersListQuery({
+  //   page: pagin.page,
+  //   pagin: pagin.pagin,
+  // });
+  const fakeFetchedData = fakeApi(pagin);
   const [lastData, setLastData] = useState(false);
   const [beersList, setBeersList] = useState([]);
 
@@ -31,10 +33,12 @@ const Catalog = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      setBeersList(data);
+    if (fakeFetchedData) {
+      setTimeout(()=>{
+        setBeersList(fakeFetchedData);
+      }, 700)
     }
-  }, [data]);
+  }, [fakeFetchedData]);
 
   return (
     <section className="max-w-screen-xl w-full flex mx-auto py-10">

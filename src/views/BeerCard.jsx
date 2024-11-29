@@ -119,7 +119,7 @@ const BeerCard = () => {
             <div ref={targetRef} className="">
               <img
                 ref={imgRef}
-                src={beer.image_url}
+                src="/beer.png"
                 alt={beer.name}
                 className="object-contain h-full w-full"
               />
